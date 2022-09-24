@@ -18,8 +18,8 @@ jobs:
       # This step installs Deno, which is a new Javascript runtime that improves on Node. We'll use it for postprocessing later
       - name: Setup deno
         uses: actions/setup-python@v4
-          with:
-            python-version: '3.10' 
+        with:
+          python-version: '3.10' 
       # The third step is a Flat Action step. We fetch the data in the http_url and save it as downloaded_filename
       - name: Fetch data 
         uses: githubocto/flat@v3

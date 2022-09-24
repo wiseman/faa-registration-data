@@ -1,0 +1,30 @@
+name: Get FAA registration data
+
+on:
+  push:
+    paths:
+      - .github/workflows/scrape-faa-website.yaml # Only run a new workflow every time this file changes
+  workflow_dispatch: # Required even though this is currently empty
+  schedule:
+    - cron: '0 7 * * *' # Run at 0700Z
+
+jobs:
+  scheduled:
+    runs-on: ubuntu-latest
+    steps: # This workflow has 3 steps
+      # The first step is to check out the repository so it can read the files inside of it and do other operations
+      - name: Check out repo
+        uses: actions/checkout@v2
+      # This step installs Deno, which is a new Javascript runtime that improves on Node. We'll use it for postprocessing later
+      - name: Setup deno
+        uses: actions/setup-python@v4
+          with:
+            python-version: '3.10' 
+      # The third step is a Flat Action step. We fetch the data in the http_url and save it as downloaded_filename
+      - name: Fetch data 
+        uses: githubocto/flat@v3
+        with:
+          http_url: https://registry.faa.gov/database/ReleasableAircraft.zip # The data to fetch
+          downloaded_filename: ReleasableAircraft.zip # The http_url gets saved and renamed in our repository as btc-price.json
+          postprocess: postprocess.py # A postprocessing script
+          # mask: true # optional param to mask the source http_url from the commit. Look at README for more options

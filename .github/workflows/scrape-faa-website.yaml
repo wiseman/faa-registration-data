@@ -25,9 +25,12 @@ jobs:
         run: |-
           unzip ReleasableAircraft.zip
       - name: Commit and push if it changed
+        # See https://stackoverflow.com/a/59926487/122762 for an explanation
+        # of the postBuffer increase.
         run: |-
           git config user.name "Automated"
           git config user.email "actions@users.noreply.github.com"
+          git config --global http.postBuffer 157286400
           git add -A
           timestamp=$(date -u)
           git commit -m "Latest data: ${timestamp}" || exit 0

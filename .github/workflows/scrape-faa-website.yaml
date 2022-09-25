@@ -24,6 +24,9 @@ jobs:
       - name: Unzip
         run: |-
           unzip ReleasableAircraft.zip
+      - name: Remove spaces
+        run: |-
+          for i in *.txt; do sed -i -E 's/, +/,/g' $i && sed -i -E 's/ +,/,/g' $i; done
       - name: Commit and push if it changed
         # See https://stackoverflow.com/a/59926487/122762 for an explanation
         # of the postBuffer increase.

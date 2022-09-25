@@ -24,6 +24,7 @@ jobs:
       - name: Unzip
         run: |-
           unzip -o ReleasableAircraft.zip
+          rm ReleasableAircraft.zip
       - name: Remove spaces
         run: |-
           for i in *.txt; do sed -i -E 's/, +/,/g' $i && sed -i -E 's/ +,/,/g' $i; done

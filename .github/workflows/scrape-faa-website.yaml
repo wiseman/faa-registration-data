@@ -23,7 +23,7 @@ jobs:
           curl -O https://registry.faa.gov/database/ReleasableAircraft.zip
       - name: Unzip
         run: |-
-          unzip ReleasableAircraft.zip
+          unzip -o ReleasableAircraft.zip
       - name: Remove spaces
         run: |-
           for i in *.txt; do sed -i -E 's/, +/,/g' $i && sed -i -E 's/ +,/,/g' $i; done
